@@ -77,11 +77,11 @@ class Game {
     }
 
     func hitMe(userInput: String, cards: [Card], playerScore: Int, computerScore: Int) {
-        
-        if let randomCard = cards.randomElement() {
+        var shuffledDeck = cards.shuffled()
+        let randomCard = shuffledDeck.popLast() ?? nil
         switch userInput {
         case "hit":
-            user.cards.append(randomCard)
+            user.cards.append(randomCard!)
         case "pass":
             stopHits(playerScore: playerScore, computerScore: computerScore)
             print("")
@@ -95,19 +95,24 @@ class Game {
 //        }
 //        }
         
-    }
+//    }
 
 //    func computerVsPlayer(playerScore: Int, compScore: Int) -> String {
 //
 //    }
 //
-    func gameStatus(playerScore: Int ) {
-        let playerScore = user.score
-            switch playerScore {
+    func gameStatus(playerCards: [Card]) {
+        var playerScoreStatus: Int = 0
+        for card in playerCards {
+            playerScoreStatus = user.score + card.value
+        }
+            switch playerScoreStatus {
             case 21:
                 print("Blackjack - YOU WIN!!!")
+                break
             case 22...:
                 print("BUST")
+                break
             default:
                 print()
             }
@@ -115,6 +120,6 @@ class Game {
     }
 
 
+
+
 }
-
-
