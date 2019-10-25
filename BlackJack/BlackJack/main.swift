@@ -52,7 +52,7 @@ print(game.deck.count)
 print()
 print(user.score, user.playerName)
 print()
-print(user.cards)
+    print(user.cards.map{ $0.stringify() })
 print()
     
 } while user.score < 21

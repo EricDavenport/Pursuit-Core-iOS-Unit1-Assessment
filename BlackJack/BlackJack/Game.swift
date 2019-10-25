@@ -88,7 +88,7 @@ class Game {
     func stopHit(userScore: Int) {
            let computerScore = randomComputerScore
            let userScore = user.score
-           
+           print("stop hits")
            if computerScore == 21 && userScore == 21 {
                print("Draw!!")
            } else if userScore == 21 {
