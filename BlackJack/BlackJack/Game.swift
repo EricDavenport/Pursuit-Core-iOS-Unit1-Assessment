@@ -31,7 +31,7 @@ class Game {
        }
     
     var randomComputerScore: Int {
-        let randomComputerScore = Int.random(in: 18...23)
+        let randomComputerScore = Int.random(in: 21...23)
         return randomComputerScore
     }
     
@@ -51,7 +51,7 @@ class Game {
         var winner = ""
         if playerScore == 21 {
             winner += player.playerName
-            print("\(winner) wins")
+            print("\(winner) wins with hand of \(computerScore)")
         } else if computerScore == 21 {
             winner = "Computer"
             print("\(winner) wins!!!!")
@@ -67,15 +67,15 @@ class Game {
     
     func hitMe(userInput: String) -> Card? {
         let shuffledDeck = deck.shuffled()
-        let randomCard = shuffledDeck.randomElement() ?? Card(suit: .heart, value: 2, isFaceCard: false, face: .none)
+        let randomCard = shuffledDeck.randomElement() ?? Card(suit: .heart, value: 2, isFaceCard:false, face: .none)
         
         if userInput == "hit" {
             user.cards.append(randomCard)
             user.score += randomCard.value
-            deck.popLast() ?? Card(suit: .heart, value: 2, isFaceCard: false, face: .none)
+            let _ = deck.popLast()
             
         } else if userInput == "pass" {
-            stopHit(playerScore: user.score)
+           let _ = stopHit(playerScore: user.score)
         }
         return randomCard
         
