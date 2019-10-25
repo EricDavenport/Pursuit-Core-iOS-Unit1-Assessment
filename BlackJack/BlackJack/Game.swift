@@ -31,21 +31,21 @@ import Foundation
 //computerVsPlayer() draws a random number for the computer and determines the winner of the game.
 //gameStatus() takes in the player's card and determines the current score. Here the player score options can be, BlackJack, Bust or Continue playing as their status is still valid for game play.
 
-
+// MARK: Class begin
 class Game {
-    // MARK: Properties
+// MARK: Properties
     var deck: [Card]
     var player: Player
     var hitPlayer: Bool
     
-    // MARK: Initializer
+// MARK: Initializer
     init(deck: [Card], player: Player, hitPlayer: Bool) {
         self.deck = deck
         self.player = player
         self.hitPlayer = hitPlayer
     }
     
-    // MARK: Computed Properties
+// MARK: Computed Properties
     var hasMoreCards: Bool {
         // check if deck is not empty - return is still comtains cards in deck
         return !deck.isEmpty
@@ -56,32 +56,38 @@ class Game {
         return randomComputerScore
     }
     
-    // MARK: Methods
+// MARK: Methods
+// MARK: new Game Method
     func newGame() {
         deck.removeAll()
+        user.cards.removeAll()
         user.score = 0
-        
     }
+// MARK: stop Hit method
     func stopHits(playerScore: Int, computerScore: Int) -> String {
         let computerScore = randomComputerScore
         let playerScore = user.score
         var winner = ""
-        if computerScore > playerScore {
-            winner = "Computer"
-            print("House wins")
-        } else {
+        if playerScore == 21 {
             winner += player.playerName
-            print("\(player.playerName) wins!!!!")
-        }
+            print("\(winner) wins")
+        } else if computerScore == 21 {
+            winner = "Computer"
+            print("\(winner) wins!!!!")
+        } else if computerScore > 21 && playerScore < 21 {
+            print("House Bust!! \(player.playerName) Wins!!")
+        } 
         return winner
     }
-
+// MARK: hit Me method
     func hitMe(userInput: String, cards: [Card], playerScore: Int, computerScore: Int) {
         var shuffledDeck = cards.shuffled()
         let randomCard = shuffledDeck.popLast() ?? nil
+        
         switch userInput {
         case "hit":
             user.cards.append(randomCard!)
+            print(randomCard)
         case "pass":
             stopHits(playerScore: playerScore, computerScore: computerScore)
             print("")
@@ -89,22 +95,16 @@ class Game {
             print("Invalid selection")
         }
         }
-//        if let randomCard = cards.randomElement() {
-//        if userInput == "hit" {
-//            player.cards.append(randomCard)
-//        }
-//        }
-        
-//    }
+
 
 //    func computerVsPlayer(playerScore: Int, compScore: Int) -> String {
 //
 //    }
-//
+// MARK: gameStatus method
     func gameStatus(playerCards: [Card]) {
         var playerScoreStatus: Int = 0
         for card in playerCards {
-            playerScoreStatus = user.score + card.value
+            playerScoreStatus += card.value
         }
             switch playerScoreStatus {
             case 21:

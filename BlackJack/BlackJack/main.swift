@@ -36,18 +36,19 @@ var continueGame: Bool = false
 repeat {
     
     
-print("hit or pass")
-var passOrHit = readLine()?.lowercased()
-print(user.cards)
+
 
 repeat {
 
+    print("hit or pass")
+    var passOrHit = readLine()?.lowercased()
+    print(user.cards)
     
   
 if passOrHit == "hit" {
     game.hitMe(userInput: passOrHit ?? "", cards: game.deck, playerScore: user.score, computerScore: 0)
     for each in user.cards {
-        user.score = user.score + each.value
+        user.score += each.value
     }
     game.gameStatus(playerCards: user.cards)
     gameOver = true
@@ -59,6 +60,7 @@ if passOrHit == "hit" {
 } else if passOrHit == "pass" {
     game.stopHits(playerScore: user.score, computerScore: 0)
     game.gameStatus(playerCards: user.cards)
+    game.newGame()
     gameOver = false
     continueGame = false
 }
