@@ -26,7 +26,6 @@ repeat {
 
     print("hit or pass")
     var passOrHit = readLine()?.lowercased()
-    print(user.cards)
     
   
 if passOrHit == "hit" {
@@ -41,19 +40,19 @@ if passOrHit == "hit" {
             continueGame = false
     }
 } else if passOrHit == "pass" {
-    game.stopHit(userScore: user.score)
+    game.stopHit(playerScore: user.score)
     game.gameStatus(playerCards: user.cards)
     gameOver = false
     continueGame = false
+    break
 }
       
 
-print(game.deck.count)
-print()
 print(user.score, user.playerName)
-print()
-    print(user.cards.map{ $0.stringify() })
-print()
+sleep(1)
+print(user.cards.map{ $0.stringify() })                 // print with card symbol
+sleep(1)
+
     
 } while user.score < 21
 
